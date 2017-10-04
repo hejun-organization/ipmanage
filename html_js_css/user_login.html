@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+  <meta charset="UTF-8">
+  <title>login</title>
+  <style>
+    * {
+      padding: 0;
+      margin: 0;
+    }
+    #main {
+      border: 1px solid #ccc;
+      width: 500px;
+      height: 500px;
+      position: absolute;
+      top: 50px;
+      left: 100px;
+    }
+    #box {
+      width: 200px;
+      height: 200px;
+      margin: 100px 0px 0px 50px;
+    }
+    #submit {
+      padding-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div id="main">
+  <div id="box">
+    <form action="login" method="post">
+      <table>
+        <tr>
+          <td><label for="user_name">user:</label></td>
+          <td><input type="text" name="user_name" id="user_name" required placeholder="user name"></td>
+        </tr>
+        <tr>
+          <td><label for="user_pwd">password:</label></td>
+          <td><input type="password" name="user_pwd" id="user_pwd" required placeholder="user password"></td>
+        </tr>
+        <!--<tr>-->
+          <!--<td><input type="text" name="aaa" value="hejuntext" style="display:none"></td>-->
+        <!--</tr>-->
+        <tr>
+          <td id="submit"><input type="submit" value="login"></td>
+        </tr>
+      </table>
+    </form>
+  </div>
+  </div>
+</body>
+</html>
