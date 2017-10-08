@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+  <meta charset="UTF-8">
+  <title>test</title>
+  <!-- CSS goes in the document HEAD or added to your external stylesheet -->
+  <style type="text/css">
+    * {
+      padding: 0;
+      margin: 0;
+    }
+    table.altrowstable {
+      font-family: verdana,arial,sans-serif;
+      font-size:11px;
+      color:#333333;
+      border-width: 1px;
+      border-color: #a9c6c9;
+      border-collapse: collapse;
+    }
+    table.altrowstable th {
+      border-width: 1px;
+      padding: 8px;
+      border-style: solid;
+      border-color: #a9c6c9;
+    }
+    table.altrowstable td {
+      border-width: 1px;
+      padding: 8px;
+      border-style: solid;
+      border-color: #a9c6c9;
+    }
+    .oddrowcolor{
+      background-color:#d4e3e5;
+    }
+    .evenrowcolor{
+      background-color:#c3dde0;
+    }
+    #ip_tbl {
+      position: absolute;
+    }
+
+    #ip_form {
+      width: 300px;
+      height: 200px;
+      margin: 100px 0px 0px 50px;
+      border: 1px solid #ccc;
+      position: fixed;
+    }
+
+    #box {
+      padding: 50px 10px 0 10px;
+    }
+
+    #submit {
+      padding-top: 10px;
+    }
+  </style>
+  <script src="jquery/jquery-3.2.1.min.js"></script>
+  <script src="js/aeip.js"></script>
+  <!--<script>-->
+    <!--window.onload = function(){-->
+      <!--var xhr = new XMLHttpRequest();-->
+      <!--xhr.open('GET', 'ae.db', true);-->
+      <!--xhr.responseType = 'arraybuffer';-->
+
+      <!--xhr.onload = function(e) {-->
+        <!--var uInt8Array = new Uint8Array(this.response);-->
+        <!--var db = new SQL.Database(uInt8Array);-->
+        <!--var res = db.exec("SELECT * FROM ae_user");-->
+        <!--for( i= 0;i < res[0].values.length;i++)-->
+        <!--{//query values-->
+
+          <!--console.log(res[0].values[i]);-->
+
+        <!--}-->
+        <!--// contents is now [{columns:['col1','col2',...], values:[[first row], [second row], ...]}]-->
+      <!--};-->
+      <!--xhr.send();-->
+        <!--}-->
+
+  <!--</script>-->
+</head>
+<body>
+    <div id="ip_tbl">
+    <table class="altrowstable" id="ipt">
+      <tr>
+        <th>Info Header 1</th><th>Info Header 2</th><th>Info Header 3</th>
+      </tr>
+      <tr>
+        <td>Text 1A</td><td>Text 1B</td><td>Text 1C</td>
+      </tr>
+      <tr>
+        <td>Text 2A</td><td>Text 2B</td><td>Text 2C</td>
+      </tr>
+      <tr>
+        <td>Text 3A</td><td>Text 3B</td><td>Text 3C</td>
+      </tr>
+      <tr>
+        <td>Text 4A</td><td>Text 4B</td><td>Text 4C</td>
+      </tr>
+    </table>
+  </div>
+  <div id="ip_form">
+    <div id="box">
+    <form method="post" action="update_ip">
+        <table>
+          <tr>
+            <td><label for="user_name">user:</label></td>
+            <td><input type="text" name="user_name" id="user_name" required placeholder="user name"></td>
+          </tr>
+          <tr>
+            <td><label for="ip">ip:</label></td>
+            <td><input type="text" name="ip" id="ip" required placeholder="ip"></td>
+          </tr>
+          <tr>
+            <td><label for="time">time:</label></td>
+            <td><input type="time" name="time" id="time" required placeholder="time"></td>
+          </tr>
+          <tr>
+            <td id="submit"><input type="submit" value="confirm"></td>
+          </tr>
+        </table>
+     </form>
+    </div>
+  </div>
+</body>
+</html>

@@ -2,6 +2,7 @@
 __author__ = 'hejun 244105445@qq.com'
 
 from login_adapter import LoginAdapter
+from ip_adapter import IpAdapter
 from db_adapter import DbAdapter
 
 
@@ -9,7 +10,7 @@ class Aadapter(object):
 
 	def __init__(self):
 		self.__db = DbAdapter()
-		self.__adapter = {'login': LoginAdapter(self.__db)}
+		self.__adapter = {'login': LoginAdapter(self.__db),'ip':IpAdapter(self.__db)}
 
 	def get_adapter(self,adapter_name):
 		return  self.__adapter.get(adapter_name)

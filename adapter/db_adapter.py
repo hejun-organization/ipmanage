@@ -21,7 +21,7 @@ class DbAdapter(object):
 			#print 'create user table fail reason is:{}'.format(e.message)
 			pass
 		try:
-			self._cursor.execute('create table ae_ip (id inter, ip text,user text,outtime text'
+			self._cursor.execute('create table ae_ip (id inter, ip text,user text,outtime text,'
 								 'status text,describe text,lastuser text)')
 		except Exception,e:
 			#print 'create ip table fail reason is:{}'.format(e.message)
@@ -29,13 +29,13 @@ class DbAdapter(object):
 
 	def insert(self,data_lst,table):
 		sql = 'insert into %s values {}'
-		sql = sql.format('(?,?,?)') if 'ae_user' == table else sql.format('(?,?)')
+		sql = sql.format('(?,?,?)') if 'ae_user' == table else sql.format('(?,?,?,?,?,?,?)')
 		for data in data_lst:
-			self._cursor.execute('insert into %s values (?,?,?)' % table,data)
+			self._cursor.execute(sql % table,data)
 		self._db.commit()
 
 	def select(self,table):
-		return self._cursor.execute('select * from %s' % table).fetchall()
+		return self._cursor.execute('select * from %s order by id asc' % table).fetchall()
 
 	def delete(self,table,id):
 		self._cursor.execute('delete from %s where id=%d' % (table,id))
