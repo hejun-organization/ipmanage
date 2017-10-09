@@ -5,7 +5,7 @@ import logging
 import os
 
 cur_dir = os.getcwd()
-log_path = os.path.join(cur_dir.split('http_server')[0],'http_server','http.log')
+log_path = os.path.join(cur_dir.split('http_server')[0],'http.log')
 
 logging.basicConfig(level=logging.INFO,
 					format='%(asctime)s %(filename)s[line:%(lineno)d] %(levelname)s %(message)s',

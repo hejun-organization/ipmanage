@@ -6,6 +6,7 @@ from common.http_log import logger
 from common.html_helper import Html
 from db_adapter import DbAdapter
 import re
+import time
 
 
 class IpAdapter(object):
@@ -72,8 +73,34 @@ class IpAdapter(object):
 			sql = 'update ae_ip set id=id-1 where id>%d' % id
 			self.__db.execute(sql)
 
-	def test(self):
-		return self.__db.select('ae_ip')
+	def update_ip(self,req):
+		user = req.get('user_name')
+		ip = req.get('ip')
+		outtime = req.get('time')
+		describe = req.get('describe')
+		try:
+			self.__check_user(user)
+			self.__check_ip(ip)
+			self.__check_time(int(outtime))
+		except Exception,e:
+			return Html.html_template % e.message
+		outtime = int(time.time()) + int(outtime) * 60 * 60
+		sql = 'update ae_ip set user={},outtime={},describe={} where ip={}'.format(user,outtime,describe,ip)
+		self.__db.execute(sql)
+		return Html.html_template % 'requst success'
+
+	def __check_user(self,user):
+		pass#to do
+
+	def __check_ip(self,ip):
+		data_lst = self.__db.select('ae_ip')
+		ip_lst = [data[1] for data in data_lst]
+		if ip not in ip_lst:
+			raise Exception('invalid ip')
+
+	def __check_time(self,time):
+		if time / 60 * 24 > 30:
+			raise Exception('invalid time')
 
 
 # a = {'ip_lst': "(0,'10.168.11.11','hejun','111111','-1','test','hejun'),(1,'10.168.11.11','hejun','111113','-1','test','hejun')"}

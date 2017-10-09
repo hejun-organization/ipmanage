@@ -7,42 +7,14 @@ function selectAllFromDb(db_name){
     xhr.open('POST','ip',false);
     xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
     xhr.send('method=query_ip');
-    //4 == xhr.readyState && 200 == xhr.status ? console.log(xhr.responseText) : console.log('hejun send http error');
     if (4 == xhr.readyState && 200 == xhr.status)
     {
-        console.log(xhr.responseText);
         return eval(xhr.responseText);
     }
     else
     {
-        return [];
+        return [[]];
     }
-
-    //fr.readAsArrayBuffer(file);
-
-
-
-//    var xhr = new XMLHttpRequest();
-//    xhr.open('GET', 'ae.db', false);
-//    xhr.responseType = 'arraybuffer';
-//
-//    xhr.onload = function(e) {
-//
-//        var uInt8Array = new Uint8Array(this.response);
-//        var db = new SQL.Database(uInt8Array);
-//        var res = db.exec("SELECT * FROM " + db_name);
-//        console.log(res);
-//        console.log('hejun');
-//        for( i= 0;i < res[0].values.length;i++)
-//        {//query values
-//            console.log(res[0].values[i]);
-//            rlt.push(res[0].values[i]);
-//
-//        }
-//        db.close();
-//    };
-//    xhr.send();
-//    console.log(rlt);
 }
 
 function initTable(){
@@ -51,7 +23,7 @@ function initTable(){
     var ip_tbl = $('#ip_tbl');
     ip_tbl.css('left',tbl_left);
     ip_tbl.css('top',tbl_top);
-    var ip_tr = $('#ip tr');
+    var ip_tr = $('#ipt tr');
     for (var i = 0,len = ip_tr.length;i < len;i++)
     {
         ip_tr[i].className = i % 2 == 0 ?  'evenrowcolor' : 'oddrowcolor';
@@ -62,7 +34,6 @@ function initTable(){
 }
 
 function addTblData(data){
-    console.log(data);
     newTrElement = $('<tr></tr>').appendTo($('#ipt'));
     for (var i = 0;i < data.length;i++)
     {
@@ -70,6 +41,15 @@ function addTblData(data){
         newTdElement.innerText = '1';
         newTdElement.appendTo(newTrElement);
     }
+}
+
+function assembleData(data){
+    var out_time = parseInt(data[3]);
+    var current_time = new Date().getTime();
+    out_time = (current_time - out_time) >= 0 ? '' : new Date(out_time).toLocaleString();
+    var status = data[4];
+    status_map = {'0':'可申请','1':'正在使用','2':'故障','3':'其它'};
+    return [data[0],data[1],data[2],out_time,status_map.get(status),data[5],data[6]];
 }
 
 function main(){
@@ -96,10 +76,10 @@ function main(){
         return result;
     };
     var rlt = selectAllFromDb('ae_ip');
-    console.log(rlt);
     for (var i = 0;i < rlt.length;i++)
     {
-        addTblData(rlt[i]);
+        var data_lst = assembleData(rlt[i]);
+        addTblData(data_lst);
     }
     initTable();
 

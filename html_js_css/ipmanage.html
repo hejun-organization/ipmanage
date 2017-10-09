@@ -2,7 +2,7 @@
 <html>
 <head lang="en">
   <meta charset="UTF-8">
-  <title>test</title>
+  <title>ip</title>
   <!-- CSS goes in the document HEAD or added to your external stylesheet -->
   <style type="text/css">
     * {
@@ -57,52 +57,18 @@
   </style>
   <script src="jquery/jquery-3.2.1.min.js"></script>
   <script src="js/aeip.js"></script>
-  <!--<script>-->
-    <!--window.onload = function(){-->
-      <!--var xhr = new XMLHttpRequest();-->
-      <!--xhr.open('GET', 'ae.db', true);-->
-      <!--xhr.responseType = 'arraybuffer';-->
-
-      <!--xhr.onload = function(e) {-->
-        <!--var uInt8Array = new Uint8Array(this.response);-->
-        <!--var db = new SQL.Database(uInt8Array);-->
-        <!--var res = db.exec("SELECT * FROM ae_user");-->
-        <!--for( i= 0;i < res[0].values.length;i++)-->
-        <!--{//query values-->
-
-          <!--console.log(res[0].values[i]);-->
-
-        <!--}-->
-        <!--// contents is now [{columns:['col1','col2',...], values:[[first row], [second row], ...]}]-->
-      <!--};-->
-      <!--xhr.send();-->
-        <!--}-->
-
-  <!--</script>-->
 </head>
 <body>
     <div id="ip_tbl">
     <table class="altrowstable" id="ipt">
       <tr>
-        <th>Info Header 1</th><th>Info Header 2</th><th>Info Header 3</th>
-      </tr>
-      <tr>
-        <td>Text 1A</td><td>Text 1B</td><td>Text 1C</td>
-      </tr>
-      <tr>
-        <td>Text 2A</td><td>Text 2B</td><td>Text 2C</td>
-      </tr>
-      <tr>
-        <td>Text 3A</td><td>Text 3B</td><td>Text 3C</td>
-      </tr>
-      <tr>
-        <td>Text 4A</td><td>Text 4B</td><td>Text 4C</td>
+        <th>编号</th><th>IP资源</th><th>使用人</th><th>使用时间</th><th>使用状态</th><th>使用描述</th><th>上一次使用人员</th>
       </tr>
     </table>
   </div>
   <div id="ip_form">
     <div id="box">
-    <form method="post" action="update_ip">
+    <form method="post" action="ip">
         <table>
           <tr>
             <td><label for="user_name">user:</label></td>
@@ -114,7 +80,14 @@
           </tr>
           <tr>
             <td><label for="time">time:</label></td>
-            <td><input type="time" name="time" id="time" required placeholder="time"></td>
+            <td><input type="text" name="time" id="time" required placeholder="time"></td>
+          </tr>
+          <tr>
+            <td><label for="describe">describe:</label></td>
+            <td><input type="text" name="describe" id="describe" required placeholder="describe"></td>
+          </tr>
+          <tr>
+            <td><input type="text" name="method" value="update_ip" style="display: none"></td>
           </tr>
           <tr>
             <td id="submit"><input type="submit" value="confirm"></td>
