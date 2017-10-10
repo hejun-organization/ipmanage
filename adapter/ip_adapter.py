@@ -82,15 +82,26 @@ class IpAdapter(object):
 			self.__check_user(user)
 			self.__check_ip(ip)
 			self.__check_time(int(outtime))
+			self.__check_status(ip)
 		except Exception,e:
 			return Html.html_template % e.message
-		outtime = int(time.time()) + int(outtime) * 60 * 60
-		sql = 'update ae_ip set user={},outtime={},describe={} where ip={}'.format(user,outtime,describe,ip)
+		print outtime
+		outtime = int(time.time()) * 1000 + int(outtime) * 60 * 60 * 1000
+		print outtime
+		sql = 'update ae_ip set user=\"{}\",outtime=\"{}\",status=\"1\",describe=\"{}\" where ip=\"{}\"'.format(user,outtime,describe,ip)
+		print sql
 		self.__db.execute(sql)
 		return Html.html_template % 'requst success'
 
 	def __check_user(self,user):
 		pass#to do
+
+	def __check_status(self,ip):
+		sql = 'select * from ae_ip where ip=\"{}\"'.format(ip)
+		rlt = self.__db.execute(sql).fetchall()
+		print rlt
+		if '0' != rlt[0][4]:
+			raise Exception('no request`s ip')
 
 	def __check_ip(self,ip):
 		data_lst = self.__db.select('ae_ip')
@@ -103,8 +114,14 @@ class IpAdapter(object):
 			raise Exception('invalid time')
 
 
-# a = {'ip_lst': "(0,'10.168.11.11','hejun','111111','-1','test','hejun'),(1,'10.168.11.11','hejun','111113','-1','test','hejun')"}
+	def rmv_all(self):
+		self.__db.del_all('ae_ip')
+
+	def test(self):
+		return self.__db.select('ae_ip')
+# a = {'ip_lst': "(0,'10.168.11.11','hejun','','0','test','hejun')"}
 # b = IpAdapter(DbAdapter())
+# b.rmv_all()
 # b.batch_add_ip(a)
 # print b.test()
 

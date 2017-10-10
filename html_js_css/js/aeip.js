@@ -46,10 +46,11 @@ function addTblData(data){
 function assembleData(data){
     var out_time = parseInt(data[3]);
     var current_time = new Date().getTime();
+    console.log(current_time,out_time)
     out_time = (current_time - out_time) >= 0 ? '' : new Date(out_time).toLocaleString();
     var status = data[4];
     status_map = {'0':'可申请','1':'正在使用','2':'故障','3':'其它'};
-    return [data[0],data[1],data[2],out_time,status_map.get(status),data[5],data[6]];
+    return [data[0],data[1],data[2],out_time,status_map[status],data[5],data[6]];
 }
 
 function main(){

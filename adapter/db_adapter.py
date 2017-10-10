@@ -55,8 +55,9 @@ class DbAdapter(object):
 		self._db.commit()
 
 	def execute(self,sql):
-		self._cursor.execute(sql)
+		rlt = self._cursor.execute(sql)
 		self._db.commit()
+		return rlt
 
 	def roll_back(self):
 		self._db.rollback()
